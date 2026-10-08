@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Web Development Exam</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background: #f2f2f2;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #555;
+
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 280px;
+
+            padding: 30px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            box-shadow: 0 4px 15px #bbb;
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .card p {
+            min-height: 50px;
+
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 12px 25px;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+        }
+
+        .q1 {
+            background: #007bff;
+        }
+
+        .q2 {
+            background: #28a745;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Web Development Exam</h1>
+
+        <p class="subtitle">
+            Select a question to open
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h2>Question 1</h2>
+
+                <p>
+                    Online Food Ordering Form using
+                    HTML, CSS and JavaScript.
+                </p>
+
+                <a href="/q1" class="btn q1">
+                    Open Q1
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>Question 2</h2>
+
+                <p>
+                    Employee Management using
+                    Node.js and MongoDB.
+                </p>
+
+                <a href="/q2" class="btn q2">
+                    Open Q2
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

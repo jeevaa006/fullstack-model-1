@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Employee Management</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f2f2f2;
+        }
+
+        .container {
+
+            max-width: 600px;
+
+            margin: auto;
+
+            padding: 25px;
+
+            background: white;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 12px #999;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 25px;
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 11px;
+
+            margin-top: 8px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #aaa;
+
+            border-radius: 5px;
+        }
+
+        button {
+
+            padding: 11px 20px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        .searchBtn {
+
+            background: blue;
+
+            color: white;
+        }
+
+        .updateBtn {
+
+            background: green;
+
+            color: white;
+        }
+
+        .homeBtn {
+
+            background: #555;
+
+            color: white;
+
+            margin-top: 20px;
+        }
+
+        #result {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #eeeeee;
+
+            border-radius: 5px;
+
+            line-height: 1.8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Employee Management</h1>
+
+
+    <!-- SEARCH -->
+
+    <h2>Search Employee</h2>
+
+    <input
+        type="text"
+        id="searchId"
+        placeholder="Enter Employee ID"
+    >
+
+    <button
+        class="searchBtn"
+        onclick="searchEmployee()"
+    >
+        Search Employee
+    </button>
+
+
+    <!-- UPDATE -->
+
+    <h2>Update Salary</h2>
+
+    <input
+        type="text"
+        id="updateId"
+        placeholder="Enter Employee ID"
+    >
+
+    <input
+        type="number"
+        id="salary"
+        placeholder="Enter New Salary"
+    >
+
+    <button
+        class="updateBtn"
+        onclick="updateSalary()"
+    >
+        Update Salary
+    </button>
+
+
+    <!-- RESULT -->
+
+    <div id="result">
+
+        Result will appear here.
+
+    </div>
+
+
+    <button
+        class="homeBtn"
+        onclick="window.location.href='/'"
+    >
+        Back to Home
+    </button>
+
+</div>
+
+
+<script>
+
+
+// ==========================
+// SEARCH EMPLOYEE
+// ==========================
+
+async function searchEmployee() {
+
+    const employeeId =
+        document
+            .getElementById("searchId")
+            .value
+            .trim();
+
+
+    if (employeeId === "") {
+
+        document.getElementById("result").innerHTML =
+            "Please enter Employee ID.";
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/employee/" +
+                encodeURIComponent(employeeId)
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            document.getElementById("result").innerHTML =
+                data.message;
+
+            return;
+        }
+
+
+        document.getElementById("result").innerHTML = `
+
+            <h3>Employee Details</h3>
+
+            <b>Employee ID:</b>
+            ${data.employeeId}
+            <br>
+
+            <b>Name:</b>
+            ${data.name}
+            <br>
+
+            <b>Department:</b>
+            ${data.department}
+            <br>
+
+            <b>Designation:</b>
+            ${data.designation}
+            <br>
+
+            <b>Salary:</b>
+            ${data.salary}
+            <br>
+
+            <b>Email:</b>
+            ${data.email}
+
+        `;
+
+    }
+
+    catch (error) {
+
+        document.getElementById("result").innerHTML =
+            "Server error.";
+
+    }
+
+}
+
+
+// ==========================
+// UPDATE SALARY
+// ==========================
+
+async function updateSalary() {
+
+    const employeeId =
+        document
+            .getElementById("updateId")
+            .value
+            .trim();
+
+
+    const salary =
+        document
+            .getElementById("salary")
+            .value;
+
+
+    if (employeeId === "") {
+
+        document.getElementById("result").innerHTML =
+            "Please enter Employee ID.";
+
+        return;
+    }
+
+
+    if (
+        salary === "" ||
+        Number(salary) < 0
+    ) {
+
+        document.getElementById("result").innerHTML =
+            "Please enter a valid salary.";
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/employee/" +
+                encodeURIComponent(employeeId),
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        salary: Number(salary)
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            document.getElementById("result").innerHTML =
+                data.message;
+
+            return;
+        }
+
+
+        document.getElementById("result").innerHTML = `
+
+            <h3>
+                Salary Updated Successfully
+            </h3>
+
+            <b>Employee ID:</b>
+            ${data.employeeId}
+            <br>
+
+            <b>Name:</b>
+            ${data.name}
+            <br>
+
+            <b>New Salary:</b>
+            ${data.salary}
+
+        `;
+
+    }
+
+    catch (error) {
+
+        document.getElementById("result").innerHTML =
+            "Server error.";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

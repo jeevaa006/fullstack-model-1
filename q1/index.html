@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Food Ordering</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f2f2f2;
+        }
+
+        .container {
+
+            max-width: 500px;
+
+            margin: auto;
+
+            padding: 25px;
+
+            background: white;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 12px #999;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+
+            display: block;
+
+            margin-top: 15px;
+
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 10px;
+
+            margin-top: 5px;
+
+            border: 1px solid #aaa;
+
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        button {
+
+            padding: 11px 20px;
+
+            margin-top: 20px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        #submit {
+
+            background: green;
+
+            color: white;
+        }
+
+        #reset {
+
+            background: red;
+
+            color: white;
+        }
+
+        #message {
+
+            margin-top: 20px;
+
+            padding: 12px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .home {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            text-decoration: none;
+
+            color: #007bff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Online Food Ordering</h1>
+
+    <form id="foodForm">
+
+        <label>Customer Name</label>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter customer name"
+        >
+
+
+        <label>Phone Number</label>
+
+        <input
+            type="text"
+            id="phone"
+            placeholder="Enter 10 digit phone number"
+        >
+
+
+        <label>Food Item</label>
+
+        <select id="food">
+
+            <option value="">
+                Select Food
+            </option>
+
+            <option>Pizza</option>
+
+            <option>Burger</option>
+
+            <option>Biryani</option>
+
+            <option>Dosa</option>
+
+            <option>Fried Rice</option>
+
+        </select>
+
+
+        <label>Quantity</label>
+
+        <input
+            type="number"
+            id="quantity"
+            min="1"
+            placeholder="Enter quantity"
+        >
+
+
+        <label>Delivery Address</label>
+
+        <textarea
+            id="address"
+            placeholder="Enter delivery address"
+        ></textarea>
+
+
+        <label>Payment Method</label>
+
+        <select id="payment">
+
+            <option value="">
+                Select Payment
+            </option>
+
+            <option>
+                Cash on Delivery
+            </option>
+
+            <option>
+                UPI
+            </option>
+
+            <option>
+                Card
+            </option>
+
+        </select>
+
+
+        <button
+            type="submit"
+            id="submit"
+        >
+            Submit Order
+        </button>
+
+
+        <button
+            type="reset"
+            id="reset"
+        >
+            Reset
+        </button>
+
+    </form>
+
+
+    <div id="message"></div>
+
+
+    <a href="/" class="home">
+        Back to Home
+    </a>
+
+</div>
+
+
+<script>
+
+document
+    .getElementById("foodForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        const food =
+            document.getElementById("food").value;
+
+        const quantity =
+            document.getElementById("quantity").value;
+
+        const address =
+            document.getElementById("address").value.trim();
+
+        const payment =
+            document.getElementById("payment").value;
+
+
+        if (name === "") {
+
+            alert("Enter customer name");
+
+            return;
+        }
+
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+
+            alert("Enter valid 10 digit phone number");
+
+            return;
+        }
+
+
+        if (food === "") {
+
+            alert("Select food item");
+
+            return;
+        }
+
+
+        if (quantity === "" ||
+            Number(quantity) < 1) {
+
+            alert("Enter valid quantity");
+
+            return;
+        }
+
+
+        if (address === "") {
+
+            alert("Enter delivery address");
+
+            return;
+        }
+
+
+        if (payment === "") {
+
+            alert("Select payment method");
+
+            return;
+        }
+
+
+        document.getElementById("message").innerHTML =
+
+            "Order confirmed successfully!<br>" +
+
+            "Thank you, " + name + ".<br>" +
+
+            "Your " + food +
+            " order has been placed.";
+
+    });
+
+
+document
+    .getElementById("foodForm")
+    .addEventListener("reset", function() {
+
+        document.getElementById("message").innerHTML = "";
+
+    });
+
+</script>
+
+</body>
+
+</html>
